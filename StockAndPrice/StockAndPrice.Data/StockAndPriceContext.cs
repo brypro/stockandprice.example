@@ -18,4 +18,13 @@ public class StockAndPriceContext : DbContext
     {
         optionsBuilder.UseSqlite();
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        //base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<ProductPrice>()
+            .HasKey(pp => new { pp.ProductId, pp.PriceListId });
+        modelBuilder.Entity<ProductStock>()
+            .HasKey(pp => new { pp.ProductId, pp.WarehouseId });
+    }
 }
