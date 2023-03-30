@@ -11,7 +11,7 @@ public class ProductsController : ControllerBase
 {
     private readonly StockAndPriceContext _context;
 
-    public ProductsController( StockAndPriceContext context)
+    public ProductsController(StockAndPriceContext context)
     {
         _context = context;
     }
@@ -23,11 +23,11 @@ public class ProductsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetAsync(int id)
     {
-        var prod = await _context.Products.FirstOrDefaultAsync(p=>p.Id==id);
+        var prod = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
         if (prod == null) return NotFound(null);
         return Ok(prod);
     }
-    
+
     // POST api/<ProductsController>
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] Product product)
@@ -53,10 +53,9 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var prod = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-        if (prod==null) return NotFound();
+        if (prod == null) return NotFound();
         _context.Products.Remove(prod);
         await _context.SaveChangesAsync();
         return Ok(prod);
-        
     }
 }
